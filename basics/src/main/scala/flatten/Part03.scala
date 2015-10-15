@@ -37,4 +37,11 @@ trait Part03 {
 
   // Exercise, write the same program as in Part01 and Part02, with a for-comprehension
 
+  val result1 = for {
+    username <- getUserName(data)
+    user <- getUser(username)
+    email = getEmail(user)
+    validatedEmail <- validateEmail(email)
+    success <- sendEmail(validatedEmail)
+  } yield success
 }

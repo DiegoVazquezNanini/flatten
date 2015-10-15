@@ -1,6 +1,6 @@
 package flatten
 
-import scalaz.{ \/, \/- }
+import scalaz.\/
 import scalaz.syntax.std.option._
 
 trait Part04 {
@@ -32,6 +32,14 @@ trait Part04 {
   Some(5) \/> "Left side!" // == \/-(5)
 
   // Exercise, write our usual program with a for-comprehension, using 'toRightDisjunction' or '\/>'
+
+  val result1 = for {
+    username <- getUserName(data)
+    user <- getUser(username).toRightDisjunction("No User. Sorry!")
+    email = getEmail(user)
+    email <- validateEmail(email).toRightDisjunction("Invalid email")
+
+  } yield success
 
 
   // If you're entirely not interested in error messages, you can also decide to
